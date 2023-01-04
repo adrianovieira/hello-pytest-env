@@ -1,0 +1,29 @@
+= Simple FastAPI app
+
+== pytest + environ-config
+
+The app needs a environment variable, e.g: APP_PLACE and it can have different values depending on the context it is running on.
+
+.main app
+[source, python]
+----
+include::app/main.py[]
+----
+
+.environ-config app
+[source, python]
+----
+include::app/config.py[]
+----
+
+What if the app needs the environment variable, e.g: APP_PLACE and its values could be `EU`, `AMERICAS`, `AFRICA`, `ASIA`, etc?
+
+.Test cases trying some approach to check values
+[source, python]
+----
+include::tests/Hello_test.py[]
+----
+
+If one runs those test cases individually - it works well.
+
+But it doesn't work if one runs all tests because _pytest_ or _environ-config_ only loads APP_* variables once from the (O.S.)environment.
