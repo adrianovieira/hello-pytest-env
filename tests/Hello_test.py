@@ -9,10 +9,17 @@ class TestHello:
         assert response.status_code == 200
         assert response.json() == {'Hello': 'World'}
 
-
-    def test_get_main_env_world_placeed(self, client_env: TestClient):
+    def test_get_main_world_placed(self, client: TestClient, monkeypatch):
+        monkeypatch.setenv('APP_PLACE', 'ASIA')
+        response = client.get("/My World place")
+        
+        assert response.status_code == 200
+        app_place = os.environ['APP_PLACE']
+        assert response.json() == {'Hello': 'My World place', "place": app_place}
+        
+    def test_get_main_env_world_placed(self, client_env: TestClient):
         response = client_env.get("/My World place")
         
         assert response.status_code == 200
-        place = os.environ['APP_PLACE']
-        assert response.json() == {'Hello': 'My World place', "place": place}
+        app_place = os.environ['APP_PLACE']
+        assert response.json() == {'Hello': 'My World place', "place": app_place}
