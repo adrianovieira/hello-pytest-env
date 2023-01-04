@@ -15,14 +15,14 @@ class TestHello:
         
         assert response.status_code == 200
         app_place = os.environ['APP_PLACE']
-        assert response.json() == {'Hello': 'My World place', "place": app_place}
+        assert response.json() == {'Hello': 'My World placed ASIA', "place": app_place}
         
     def test_get_main_env_world_placed(self, client_env: TestClient):
         response = client_env.get("/My World place")
         
         assert response.status_code == 200
         app_place = os.environ['APP_PLACE']
-        assert response.json() == {'Hello': 'My World place', "place": app_place}
+        assert response.json() == {'Hello': 'My World placed EU', "place": app_place}
 
         
     @pytest.mark.parametrize("client_env", ["AMERICA"], indirect=True)
@@ -31,5 +31,5 @@ class TestHello:
         
         assert response.status_code == 200
         app_place = os.environ['APP_PLACE']
-        assert response.json() == {'Hello': 'My World place', "place": app_place}
+        assert response.json() == {'Hello': 'My World placed AMERICA', "place": app_place}
         
