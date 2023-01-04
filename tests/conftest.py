@@ -11,8 +11,10 @@ def client():
     
 
 @pytest.fixture()
-def client_env():
-    os.environ['APP_PLACE'] = 'EU'
+def client_env(request):
+    
+    os.environ['APP_PLACE'] = 'EU' if not hasattr(request, 'param') else request.param
+    
     from main import app as app_env
     
     yield TestClient(app_env)
